@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"se.yrgo.oop.cardgame","l":"Engine"},{"p":"se.yrgo.oop.cardgame","l":"Main"},{"p":"se.yrgo.oop.cardgame","l":"Player"}]

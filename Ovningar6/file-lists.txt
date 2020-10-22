@@ -1,0 +1,12 @@
+file-lists.txt
+Ovning1.class
+Ovning1.java
+Ovning4.class
+Ovning4.java
+Ovning5.java
+Ovning6.class
+Ovning6.java
+Person.class
+Person.java
+Rectangle.class
+Rectangle.java
