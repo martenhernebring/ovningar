@@ -1,65 +1,34 @@
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class BankAccount {
-    private BigDecimal balance;
+public abstract class BankAccount {
+    private long accountNumber;
+    private static List<Long> accounts = new ArrayList<>();
 
-    public BankAccount(BigDecimal initialBalance) {
-        if (initialBalance.compareTo(BigDecimal.ZERO) == -1) {
-            throw new IllegalArgumentException("A created account can only have positive values: "+initialBalance);
-        } else {
-            balance = initialBalance;
+    public BankAccount() {
+        generateNumber();
+    }
+
+    private void generateNumber() {
+        accountNumber = ThreadLocalRandom.current().nextLong(Long.MAX_VALUE);
+        while(accounts.contains(accountNumber) == true){
+            accountNumber = ThreadLocalRandom.current().nextLong(Long.MAX_VALUE);
         }
+        accounts.add(accountNumber);
     }
 
-    public void withdraw(BigDecimal amount) throws InsufficientBalanceException {
-        if (amount.compareTo(BigDecimal.ZERO) == -1) {
-            throw new IllegalArgumentException("Only positive values can be withdrawn: "+amount);
-        } else if ((balance.subtract(amount).compareTo(BigDecimal.ZERO) == -1)) {
-            String message = String.format("Not enough balance! Balance: %s, Amount: %s", balance.toString(),
-                    amount.toString());
-            throw new InsufficientBalanceException(message);
-        } else {
-            balance = balance.subtract(amount);
-        }
-    }
+    public abstract void withdraw(BigDecimal amount) throws InsufficientBalanceException;
 
-    public void deposit(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) == -1) {
-            throw new IllegalArgumentException("Only positive values can be deposited: "+amount);
-        } else {
-            balance.add(amount);
-        }
-    }
+    public abstract void deposit(BigDecimal amount);
 
-    public BigDecimal balance() {
-        return balance;
-    }
+    public abstract BigDecimal getBalance();
 
     @Override
-    public String toString() {
-        return String.format("Balance: %.2f", balance);
-    }
-}
-
-/*long accountNumber;
-    long totalAmount;
+    public abstract String toString();
 
     public long getAccountNumber() {
         return accountNumber;
     }
-
-    public long getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void depositAmount(long amount) {
-        if(amount<0){
-            throw new IllegalArgumentException("Amount must be positive");
-        }
-        totalAmount += amount;
-    }
-
-    public long withdrawAmount(long amount){
-        totalAmount -= amount;
-        return amount;
-    }*/
+}
