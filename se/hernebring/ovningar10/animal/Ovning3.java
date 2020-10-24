@@ -11,7 +11,6 @@ public class Ovning3 {
         beeStages.add("puppa");
         beeStages.add("imago");
         Arthropod bee = new Arthropod("bi",beeStages, true, false);
-        List<String> krillStages = new ArrayList<>();
         beeStages.add("ägg");
         beeStages.add("nauplius");
         beeStages.add("vuxen");

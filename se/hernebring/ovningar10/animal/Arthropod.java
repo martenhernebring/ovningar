@@ -11,8 +11,8 @@ public class Arthropod extends Animal {
 
     public Arthropod(String name, List<String> stages, boolean canFly, boolean canSwim) {
         super(name);
-        this.stages = new ArrayList<>();
-        this.stages.addAll(stages);
+        Arthropod.stages = new ArrayList<>();
+        Arthropod.stages.addAll(stages);
         this.canFly = canFly;
         this.canSwim = canSwim;
     }
@@ -21,15 +21,6 @@ public class Arthropod extends Animal {
         //List<String> rList = List.copyOf(stages); add not possible
         //List<String> rList = Collections.unmodifiableList(stages); //add gives exception
         return Collections.unmodifiableList(stages);
-    }
-
-    public String toString() {
-        String data = getName();
-        for(String stage:stages){
-            //data+=" "
-        }
-        return "";
-        //return name+"Stage: "+stage+" can fly: "+canFly+"\t\tcan swim: "+canSwim;
     }
 
     public boolean canFly() {
