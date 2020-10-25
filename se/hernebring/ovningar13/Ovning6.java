@@ -28,7 +28,7 @@ public class Ovning6 {
 
         try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(args[0]));
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(args[1]))) {
-            
+            long pre = System.currentTimeMillis();
             while (true) {
                 byte[] data = new byte[4096];
                 int size = (byte) bis.read(data);
@@ -38,6 +38,8 @@ public class Ovning6 {
                 
                 bos.write(data,0,size);
             }
+            long after = System.currentTimeMillis();
+            System.out.println(after-pre+" millisekunder tog metoden.");
         }
     }
 
