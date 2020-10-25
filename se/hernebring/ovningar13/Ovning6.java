@@ -30,7 +30,7 @@ public class Ovning6 {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(args[1]))) {
             long pre = System.currentTimeMillis();
             while (true) {
-                byte[] data = new byte[4096];
+                byte[] data = new byte[65536];
                 int size = (byte) bis.read(data);
                 if(size == -1){
                     break;
