@@ -1,51 +1,60 @@
 package se.hernebring.inlamning4;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SymbolCounter {
 
-    private Map<Character, Integer> frequencyTable;
+    private Map<Character, Integer> frequencyTable = new HashMap<>();;
 
-    public SymbolCounter() {
-        frequencyTable = new HashMap<>();
+    @Override
+    public String toString() {
+        var tableBuilder = new StringBuilder();
+        String newLine = System.getProperty("line.separator");
+        for (Map.Entry<Character, Integer> entry : frequencyTable.entrySet()) {
+            tableBuilder.append(entry.getKey() + ": " + entry.getValue() + newLine);
+        }
+        return tableBuilder.toString();
     }
 
-    public Map<Character, Integer> getReadOnlyTable() {
-        return Collections.unmodifiableMap(frequencyTable);
+    public SymbolCounter(Collection<String> textCollection) {
+        addSymbolCount(textCollection);
     }
 
-    public void addSymbolCount(List<String> books) {
-        for (String book : books) {
-            addSymbolCount(book);
+    public void addSymbolCount(Collection<String> textCollection) {
+        for (String textUnit : textCollection) {
+            addSymbolCount(textUnit);
         }
     }
 
-    public void addSymbolCount(String book) {
-        String[] words = book.split("\\s+");
-        addSymbolCount(words);
+    public void addSymbolCount(String anyText) {
+        String[] symbolWords = anyText.split("\\s+");
+        addSymbolCount(symbolWords);
     }
 
-    public void addSymbolCount(String[] words) {
-        for (String word : words) {
+    public void addSymbolCount(String[] symbolWords) {
+        for (String word : symbolWords) {
             addSymbolCount(word.toCharArray());
         }
     }
 
-    public void addSymbolCount(char[] charArray) {
-        for (char ch : charArray) {
-            addSymbolCount(ch);
+    public void addSymbolCount(char[] symbols) {
+        for (char symbol : symbols) {
+            addSymbolCount(symbol);
         }
     }
 
-    public void addSymbolCount(char ch) {
-        if (!Character.isWhitespace(ch)) {
-            addSymbol(ch);
+    public void addSymbolCount(char symbol) {
+        if (!Character.isWhitespace(symbol)) {
+            addSymbol(symbol);
+        } else {
+            throw new IllegalArgumentException("Only symbols are counted. No white spaces.");
         }
     }
 
+    //1 (integer) looks too much like l (variable)
     private static final int ONE = 1;
 
     private void addSymbol(char symbol) {
@@ -54,6 +63,11 @@ public class SymbolCounter {
         } else {
             frequencyTable.put(symbol, ONE);
         }
+    }
+
+    // Use for testing purposes only
+    protected Map<Character, Integer> getReadOnlyTable() {
+        return Collections.unmodifiableMap(frequencyTable);
     }
 
 }
