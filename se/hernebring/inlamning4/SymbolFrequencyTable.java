@@ -1,25 +1,24 @@
 package se.hernebring.inlamning4;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SymbolCounter {
+public class SymbolFrequencyTable {
 
-    private Map<Character, Integer> frequencyTable = new HashMap<>();;
+    private Map<Character, Integer> symbolFrequencyTable = new HashMap<>();;
 
     @Override
     public String toString() {
         var tableBuilder = new StringBuilder();
         String newLine = System.getProperty("line.separator");
-        for (Map.Entry<Character, Integer> entry : frequencyTable.entrySet()) {
+        for (Map.Entry<Character, Integer> entry : symbolFrequencyTable.entrySet()) {
             tableBuilder.append(entry.getKey() + ": " + entry.getValue() + newLine);
         }
         return tableBuilder.toString();
     }
 
-    public SymbolCounter(Collection<String> textCollection) {
+    public SymbolFrequencyTable(Collection<String> textCollection) {
         addSymbolCount(textCollection);
     }
 
@@ -58,16 +57,11 @@ public class SymbolCounter {
     private static final int ONE = 1;
 
     private void addSymbol(char symbol) {
-        if (frequencyTable.containsKey(symbol)) {
-            frequencyTable.put(symbol, frequencyTable.get(symbol) + ONE);
+        if (symbolFrequencyTable.containsKey(symbol)) {
+            symbolFrequencyTable.put(symbol, symbolFrequencyTable.get(symbol) + ONE);
         } else {
-            frequencyTable.put(symbol, ONE);
+            symbolFrequencyTable.put(symbol, ONE);
         }
-    }
-
-    // Use for testing purposes only
-    protected Map<Character, Integer> getReadOnlyTable() {
-        return Collections.unmodifiableMap(frequencyTable);
     }
 
 }

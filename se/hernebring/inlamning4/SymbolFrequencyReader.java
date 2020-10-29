@@ -17,7 +17,7 @@ public class SymbolFrequencyReader {
 
         final Collection<String> books = readFiles(args);
 
-        final var symbolCounter = new SymbolCounter(books);
+        final var symbolCounter = new SymbolFrequencyTable(books);
 
         System.out.println(symbolCounter);
     }
