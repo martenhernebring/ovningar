@@ -1,8 +1,10 @@
 package se.hernebring.inlamning4;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-public class CharacterFrequencyApp {
+public class SymbolFrequencyReader {
     
     final static String string1 = "Språken - Esaias Tegnér\n" + 
             "\n" + 
@@ -124,8 +126,14 @@ public class CharacterFrequencyApp {
             "- Johan Ludvig Runeberg";
             
     public static void main(String[] args) {
-        final var characterCounter = new CharacterCounter();
-        final var frequencyTable = characterCounter.getTableOfFrequencies(string1, string2);
+        final var symbolCounter = new SymbolCounter();
+        
+        List<String> books = new ArrayList<>();
+        books.add(string1);
+        books.add(string2);
+        symbolCounter.addSymbolCount(books);
+        
+        final var frequencyTable = symbolCounter.getReadOnlyTable();
         for (Map.Entry<Character, Integer> entry : frequencyTable.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
