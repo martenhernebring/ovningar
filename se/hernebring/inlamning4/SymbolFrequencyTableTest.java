@@ -4,14 +4,37 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class SymbolCounterTest {
-    
-    SymbolFrequencyTable symbolCounter;
-    
+class SymbolFrequencyTableTest {
+
+    SymbolFrequencyTable symbolFrequencyTable;
+
+    @Test
+    void addNewLine() {
+        String newLinesText = "\n\n\n";
+        try {
+            symbolFrequencyTable = new SymbolFrequencyTable(newLinesText);
+            fail("Unexpected counting non-symbol character");
+        } catch (IllegalArgumentException ex) {
+            System.out.println("This is ok: " + ex.getMessage());
+        } 
+        assertThrows(NullPointerException.class, () -> symbolFrequencyTable.toString());
+    }
+
+    @Test
+    void addExclamationMark() {
+
+        String exclamationMark = "!";
+        try {
+            symbolFrequencyTable.countSymbolFrequency(exclamationMark);
+        } catch (IllegalArgumentException ex) {
+            fail("Unexpected exception thrown");
+            System.out.println(ex.getMessage());
+        }
+        System.out.println(symbolFrequencyTable.toString());
+    }
+
     final static String book1 = "Språken - Esaias Tegnér\n" + "\n" + "Grekiskan.\n"
             + "Sångmön älskar dig högst, ty modersmålet är kärast.\n"
             + "All den olympiska ätt, gracerna talte som du.\n"
@@ -81,52 +104,25 @@ class SymbolCounterTest {
             + "som en nödställd nästa ej förskjuter.\n" + "Blanda du till hälften bark i brödet,\n"
             + "ty förfrusen står vår grannes åker!»\n" + "\n" + "- Johan Ludvig Runeberg";
 
-    @BeforeAll
-    void init() {
+    private void addBooks() {
         List<String> bookCollection = new ArrayList<>();
         bookCollection.add(book1);
         bookCollection.add(book2);
-        symbolCounter = new SymbolFrequencyTable(bookCollection);
+        symbolFrequencyTable = new SymbolFrequencyTable(bookCollection);
     }
-    
+
     @Test
     void checkIfDotsAre47() {
-        //assertEquals(symbolCounter.getReadOnlyTable().get('.'),47);
-        //TODO
+        addBooks();
+        // assertEquals(symbolCounter.getReadOnlyTable().get('.'),47);
+        // TODO
     }
-    
+
     @Test
     void checkIfEis4() {
-        //assertEquals(symbolCounter.getReadOnlyTable().get('E'),4);
-        //TODO
-    }
-
-    @Test
-    void addExclamationMark() {
-        
-        char exclamationMark = '!';
-        try {
-            symbolCounter.addSymbolCount(exclamationMark);
-        } catch (IllegalArgumentException ex) {
-            fail("Unexpected exception thrown");
-            System.out.println(ex.getMessage());
-        } finally {
-            assertTrue(symbolCounter.toString().charAt(0)=='!');
-        }
-    }
-
-    @Test
-    void addNewLine() {
-        char newLineChar = '\n';
-        try {
-            symbolCounter.addSymbolCount(newLineChar);
-            fail("Unexpected non-symbol added");
-        } catch (IllegalArgumentException ex) {
-            System.out.println("This message is no problem: "+ex.getMessage());
-        } finally {
-            //assertFalse(symbolCounter.getReadOnlyTable().containsKey(newLineChar));
-            //TODO
-        }
+        addBooks();
+        // assertEquals(symbolCounter.getReadOnlyTable().get('E'),4);
+        // TODO
     }
 
 }

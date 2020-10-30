@@ -4,14 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import se.hernebring.log.Slf4j2Demo;
-
 public class SymbolFrequencyReader {
-
-    final static Logger logger = LoggerFactory.getLogger(Slf4j2Demo.class);
 
     public static void main(String[] args) {
 

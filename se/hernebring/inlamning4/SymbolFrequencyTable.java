@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class SymbolFrequencyTable {
 
     private Map<Character, Integer> symbolFrequencyTable = new HashMap<>();;
@@ -19,44 +22,56 @@ public class SymbolFrequencyTable {
     }
 
     public SymbolFrequencyTable(Collection<String> textCollection) {
-        addSymbolCount(textCollection);
+        countSymbolFrequency(textCollection);
     }
 
-    public void addSymbolCount(Collection<String> textCollection) {
+    public SymbolFrequencyTable(String textUnit) {
+        countSymbolFrequency(textUnit);
+    }
+
+    public void countSymbolFrequency(Collection<String> textCollection) {
         for (String textUnit : textCollection) {
-            addSymbolCount(textUnit);
+            countSymbolFrequency(textUnit);
         }
     }
 
-    public void addSymbolCount(String anyText) {
-        String[] symbolWords = anyText.split("\\s+");
-        addSymbolCount(symbolWords);
+    final static Logger logger = LoggerFactory.getLogger(SymbolFrequencyReader.class);
+
+    public void countSymbolFrequency(String textUnit) {
+        logger.debug("Text before split: " + textUnit);
+        String[] words = textUnit.split("\\s+");
+        logger.debug("Text after split: " + words);
+        countIfAnySymbol(words);
     }
 
-    public void addSymbolCount(String[] symbolWords) {
-        for (String word : symbolWords) {
-            addSymbolCount(word.toCharArray());
-        }
-    }
-
-    public void addSymbolCount(char[] symbols) {
-        for (char symbol : symbols) {
-            addSymbolCount(symbol);
-        }
-    }
-
-    public void addSymbolCount(char symbol) {
-        if (!Character.isWhitespace(symbol)) {
-            addSymbol(symbol);
+    private void countIfAnySymbol(String[] words) {
+        if (words != null && words.length > 0) {
+            countSymbolFrequency(words);
         } else {
-            throw new IllegalArgumentException("Only symbols are counted. No white spaces.");
+            throw new IllegalArgumentException("Text has no symbols and is blank!");
         }
     }
 
-    //1 (integer) looks too much like l (variable)
+    private void countSymbolFrequency(String[] words) {
+        for (String word : words) {
+            if (word.isBlank()) {
+                continue;
+            } else {
+                countSymbolFrequency(word.toCharArray());
+            }
+        }
+    }
+
+    private void countSymbolFrequency(char[] symbols) {
+        for (char symbol : symbols) {
+            countSymbolFrequency(symbol);
+        }
+    }
+
+    // 1 (integer) looks too much like l (variable)
     private static final int ONE = 1;
 
-    private void addSymbol(char symbol) {
+    private void countSymbolFrequency(char symbol) {
         if (symbolFrequencyTable.containsKey(symbol)) {
             symbolFrequencyTable.put(symbol, symbolFrequencyTable.get(symbol) + ONE);
         } else {
