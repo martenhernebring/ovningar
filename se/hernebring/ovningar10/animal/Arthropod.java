@@ -17,8 +17,8 @@ public class Arthropod extends Animal {
         this.canSwim = canSwim;
     }
 
-    public static List<String> getStage() {
-        //List<String> rList = List.copyOf(stages); add not possible
+    public List<String> getStage() {
+        //List<String> rList = List.copyOf(stages); //add not possible
         //List<String> rList = Collections.unmodifiableList(stages); //add gives exception
         return Collections.unmodifiableList(stages);
     }
