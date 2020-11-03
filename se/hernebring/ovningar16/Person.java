@@ -27,4 +27,9 @@ public class Person implements Comparable<Person>{
 		return lastName.compareTo(person.lastName);
     }
     
+    @Override
+    public String toString() {
+        return String.format("First name:%s,\tLast name: %s\tBirth year:%s"
+            ,firstName,lastName,birthYear);
+    }
 }
