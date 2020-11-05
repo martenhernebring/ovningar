@@ -53,9 +53,6 @@ public class BirthdayReader {
                 comparison = middleMan.getDayOfYear().compareTo(todayOfYear);
                 daysUntil(todayOfYear, index);
             } else {
-                index--;
-                middleMan = birthdays.get(index);
-                comparison = middleMan.getDayOfYear().compareTo(todayOfYear);
                 daysUntil(todayOfYear, index);
             }
         } else {
@@ -70,7 +67,11 @@ public class BirthdayReader {
                 comparison = middleMan.getDayOfYear().compareTo(todayOfYear);
                 if (comparison == 0) {
                     congrats(middleMan.getFirstName());
-                } else {
+                } else if (comparison < 0){
+                    index = size / 2;
+                    middleMan = birthdays.get(index);
+                    daysUntil(todayOfYear, index);
+                } else{
                     daysUntil(todayOfYear, index);
                 }
             } else {
@@ -79,7 +80,11 @@ public class BirthdayReader {
                 comparison = middleMan.getDayOfYear().compareTo(todayOfYear);
                 if (comparison == 0) {
                     congrats(middleMan.getFirstName());
-                } else {
+                } else if (comparison < 0){
+                    index = size / 8 + 1;
+                    middleMan = birthdays.get(index);
+                    daysUntil(todayOfYear, index);
+                } else{
                     daysUntil(todayOfYear, index);
                 }
             }
