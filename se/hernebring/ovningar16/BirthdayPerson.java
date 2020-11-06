@@ -25,10 +25,6 @@ public class BirthdayPerson implements Comparable<BirthdayPerson> {
         return dayOfYear;
     }
 
-    public int compareTo(BirthdayPerson person) {
-        return dayOfYear.compareTo(person.dayOfYear);
-    }
-
     @Override
     public String toString() {
         return String.format("First name:%s,\tDay of year:%s", firstName, dayOfYear);
@@ -54,6 +50,11 @@ public class BirthdayPerson implements Comparable<BirthdayPerson> {
         result = prime * result + ((dayOfYear == null) ? 0 : dayOfYear.hashCode());
         result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
         return super.hashCode();
+    }
+
+    @Override
+    public int compareTo(BirthdayPerson person) {
+        return getDayOfYear().compareTo(person.getDayOfYear());
     }
 
 }

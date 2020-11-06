@@ -34,79 +34,29 @@ public class BirthdayReader {
     }
 
     public void printUpcoming(LocalDate today) {
-        int size = birthdays.size();
-        int index = size / 2;
-        BirthdayPerson middleMan = birthdays.get(index);
-        Integer todayOfYear = today.getDayOfYear();
-        int comparison = middleMan.getDayOfYear().compareTo(todayOfYear);
-        if (comparison == 0) {
-            congrats(middleMan.getFirstName());
-        } else if (comparison < 0) {
-            index = index + size / 4;
-            middleMan = birthdays.get(index);
-            comparison = middleMan.getDayOfYear().compareTo(todayOfYear);
-            if (comparison == 0) {
-                congrats(middleMan.getFirstName());
-            } else if (comparison < 0) {
-                index++;
-                middleMan = birthdays.get(index);
-                comparison = middleMan.getDayOfYear().compareTo(todayOfYear);
-                daysUntil(todayOfYear, index);
-            } else {
-                daysUntil(todayOfYear, index);
-            }
+        BirthdayPerson birthday = new BirthdayPerson("birthday", today);
+        int index = Collections.binarySearch(birthdays, birthday);
+        if(index > 0){
+            System.out.println("It is " + birthdays.get(index).getFirstName()
+             + "'s birthday today!");
         } else {
-            index = size / 4;
-            middleMan = birthdays.get(index);
-            comparison = middleMan.getDayOfYear().compareTo(todayOfYear);
-            if (comparison == 0) {
-                congrats(middleMan.getFirstName());
-            } else if (comparison < 0) {
-                index = size / 2 - 1;
-                middleMan = birthdays.get(index);
-                comparison = middleMan.getDayOfYear().compareTo(todayOfYear);
-                if (comparison == 0) {
-                    congrats(middleMan.getFirstName());
-                } else if (comparison < 0){
-                    index = size / 2;
-                    middleMan = birthdays.get(index);
-                    daysUntil(todayOfYear, index);
-                } else{
-                    daysUntil(todayOfYear, index);
-                }
-            } else {
-                index = size / 8;
-                middleMan = birthdays.get(index);
-                comparison = middleMan.getDayOfYear().compareTo(todayOfYear);
-                if (comparison == 0) {
-                    congrats(middleMan.getFirstName());
-                } else if (comparison < 0){
-                    index = size / 8 + 1;
-                    middleMan = birthdays.get(index);
-                    daysUntil(todayOfYear, index);
-                } else{
-                    daysUntil(todayOfYear, index);
-                }
-            }
+            index -= index;
+            daysUntil(birthday.getDayOfYear(), index);
         }
-    }
-
-    public void congrats(String name) {
-        System.out.println("It is " + name + " birthday today!");
     }
 
     public void daysUntil(int today, int index) {
         int size = birthdays.size();
         for (int j = 0; j < size; j++) {
             int diff = birthdays.get(index).getDayOfYear() - today;
-            if(diff < 0) {
+            if (diff < 0) {
                 diff += 365;
             }
             System.out.println("It is " + diff + " days until " + birthdays.get(index).getFirstName() + " birthday.");
             index++;
-            if(index >= size) {
-               index = 0;
-            }   
+            if (index >= size) {
+                index = 0;
+            }
         }
     }
 }

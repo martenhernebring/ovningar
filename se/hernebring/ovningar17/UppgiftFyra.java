@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Ex4 {
-    // your code here
+public class UppgiftFyra {
+
     private static void createData(Path file) throws IOException {
         int lines = ThreadLocalRandom.current().nextInt(50) + 10000;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file.toFile()))) {
@@ -42,15 +42,22 @@ public class Ex4 {
         System.out.println("Done!");
     }
 
-    Map<String, Integer> map = new HashMap<>();
+    static Map<String, Integer> map = new HashMap<>();
 
     private static int getNumberOfLines(String filename) throws IOException {
-        int lines = 0;
-        try(BufferedReader reader = new BufferedReader(new FileReader("file.txt"))) {
-        while (reader.readLine() != null) lines++;
-        } catch (FileNotFoundException ex) {
-            System.out.println(filename+" not found.");
+        int lines = map.getOrDefault(filename, 0);
+        if(lines != 0){
+            return lines;
         }
+        //int lines = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            while (reader.readLine() != null)
+                lines++;
+        } catch (FileNotFoundException ex) {
+            System.out.println(filename + " not found.");
+        }
+        map.put(filename, lines);
         return lines;
     }
+
 }
