@@ -79,9 +79,9 @@ class Table {
         return values.toString();
     }
 
-    String getCaseInsensitive() {
+    public String getCaseInsensitive() {
         Table caseInsensitiveCopy = new Table(frequencyTable);
-        for (Character ch = 'A'; ch <= 'Z'; ch++) {
+        for (char ch = 'A'; ch <= 'Z'; ch++) {
             if (frequencyTable.containsKey(ch)) {
                 int value = frequencyTable.get(ch);
                 char lowerCase = Character.toLowerCase(ch);
