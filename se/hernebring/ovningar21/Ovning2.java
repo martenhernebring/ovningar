@@ -12,13 +12,17 @@ public class Ovning2 {
         HttpClient client = HttpClient.newHttpClient();
         URI dadUri = URI.create("https://icanhazdadjoke.com");
         HttpRequest request = HttpRequest.newBuilder()
-                            .uri(dadUri)
-                            .header("Accept", "text/plain")
-                            .header("User-Agent", "Yrgo OOP Class (https://yrgo.se)")
-                            .build();
+            .uri(dadUri)
+            .header("Accept", "text/plain")
+            .header("User-Agent", "Yrgo OOP Class (https://yrgo.se)")
+            .build();
         for(int i = 0; i < 5; i++){
             HttpResponse<String> resp = client.send(request, BodyHandlers.ofString());
             if (resp.statusCode() == 200) {
+                System.out.println(resp.body());
+            } else {
+                System.out.println(resp.statusCode());
+                System.out.println(resp.headers();
                 System.out.println(resp.body());
             }
         }
