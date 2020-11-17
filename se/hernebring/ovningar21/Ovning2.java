@@ -22,7 +22,7 @@ public class Ovning2 {
                 System.out.println(resp.body());
             } else {
                 System.out.println(resp.statusCode());
-                System.out.println(resp.headers();
+                System.out.println(resp.headers());
                 System.out.println(resp.body());
             }
         }
