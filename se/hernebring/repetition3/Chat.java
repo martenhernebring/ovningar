@@ -20,16 +20,14 @@ public class Chat extends JFrame implements ActionListener {
     private String namn;
     private InetAddress iadr;
     private int port;
-    private JTextField skriv;
+    private JTextField skriv = new JTextField();
     private MulticastSocket so;
-    private JButton sluta;
+    private JButton sluta = new JButton("Koppla ner");
+    private JTextArea txt = new JTextArea();
+    private JScrollPane sp = new JScrollPane(txt);
 
     public Chat(String användarnamn, String gruppAdr, int portNr) {
         namn = användarnamn;
-        JTextArea txt = new JTextArea();
-        JScrollPane sp = new JScrollPane(txt);
-        skriv = new JTextField();
-        sluta = new JButton("Koppla ner");
         port = portNr;
         try {
             iadr = InetAddress.getByName(gruppAdr);
@@ -53,8 +51,6 @@ public class Chat extends JFrame implements ActionListener {
             setDefaultCloseOperation(EXIT_ON_CLOSE);
         } catch(IOException ex){
             printAndExit(ex);
-        } finally{
-            so.close();
         }
     }
 
