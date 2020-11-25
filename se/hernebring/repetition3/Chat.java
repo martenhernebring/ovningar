@@ -26,6 +26,7 @@ public class Chat extends JFrame implements ActionListener {
     private JTextArea txt = new JTextArea();
     private JScrollPane sp = new JScrollPane(txt);
 
+    @SuppressWarnings("deprecation")
     public Chat(String användarnamn, String gruppAdr, int portNr) {
         namn = användarnamn;
         port = portNr;
@@ -70,7 +71,7 @@ public class Chat extends JFrame implements ActionListener {
         System.exit(-1);
     }
 
-    @Override
+    @Override @SuppressWarnings("deprecation")
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == skriv){
             sändMedd(skriv.getText());
