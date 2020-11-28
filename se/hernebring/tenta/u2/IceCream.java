@@ -3,8 +3,6 @@ package se.hernebring.tenta.u2;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.SizeLimitExceededException;
-
 public class IceCream {
     private Holder holder;
     private List<IceCreamScoop> scoops;
@@ -15,12 +13,12 @@ public class IceCream {
         scoops = new ArrayList<>();
     }
 
-    public void addScoop(IceCreamScoop scoop) throws SizeLimitExceededException {
+    public void addScoop(IceCreamScoop scoop) throws TooManyScoopsException {
+        if(size > 4){
+            throw new TooManyScoopsException("För många kulor glass");
+        }
         scoops.add(scoop);
         size++;
-        if(size > 5){
-            throw new SizeLimitExceededException("För många kulor glass");
-        }
     }
 
     public int getSize() {
