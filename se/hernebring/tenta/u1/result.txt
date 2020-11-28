@@ -1,0 +1,4 @@
+Filename: /mnt/c/Users/HP/Documents/Yrgo/Java/Ovningar/se/hernebring/tenta/u1/mintext.txt
+Date: 2020-11-28 14-32-17
+Words processed: 30
+Total unique words: 16
