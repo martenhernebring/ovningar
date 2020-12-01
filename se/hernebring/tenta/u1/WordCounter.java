@@ -11,20 +11,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class WordCounter {
     private Path source;
     private String outputFile;
     private Map<String, Integer> counter;
     private int words;
-    private int unique;
 
     public WordCounter(Path source, String outputFile) {
         this.source = source;
         this.outputFile = outputFile;
         counter = new HashMap<>();
         words = 0;
-        unique = 0;
     }
 
     public void readAllLines() throws IOException {
@@ -46,14 +45,9 @@ public class WordCounter {
             words++;
             String word = lineWord.toLowerCase();
             if (counter.containsKey(word)) {
-                int previous = counter.get(word);
-                if (previous == 1) {
-                    unique--;
-                }
-                counter.put(word, previous + 1);
+                counter.put(word, counter.get(word) + 1);
             } else {
                 counter.put(word, 1);
-                unique++;
             }
         }
     }
@@ -61,6 +55,7 @@ public class WordCounter {
     public void writeResult() throws IOException {
         String date = Instant.now().atZone(ZoneId.of("Europe/Stockholm"))
             .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss"));
+        int unique = extractUnique();
         try (BufferedWriter writer = Files.newBufferedWriter(Path.of(outputFile), StandardOpenOption.CREATE_NEW)) {
             writer.write("Filename: " + source);
             writer.newLine();
@@ -70,5 +65,15 @@ public class WordCounter {
             writer.newLine();
             writer.write("Total unique words: " + unique);
         }
+    }
+
+    private int extractUnique() {
+        int uniqueWords = 0;
+        for(Entry<String,Integer> entry: counter.entrySet()){
+            if(entry.getValue() == 1){
+                uniqueWords++;
+            }
+        }
+        return uniqueWords;
     }
 }
