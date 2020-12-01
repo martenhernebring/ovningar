@@ -3,7 +3,7 @@ package se.hernebring.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Math {
+public final class MathUtils {
     static int lowestPositive(List<Integer> integers) {
         int lowestPositive = Integer.MAX_VALUE; // no positive values
         for (Integer intgr : integers) {
