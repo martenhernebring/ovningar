@@ -8,6 +8,7 @@ public class App {
     public static void main(String[] args) {
         if (args.length != 2 || !args[0].endsWith(".txt") || !args[1].endsWith(".txt") || args[0].equals(args[1])) {
             System.err.println("Usage WordCount [from filename.txt] [result in other filename.txt");
+            System.exit(-1);
         } else { // two different txt-files
             Path source = checkIfExist(args[0]);
             WordCounter wordCounter = new WordCounter(source, args[1]);
