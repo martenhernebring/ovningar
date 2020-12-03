@@ -3,9 +3,7 @@ package se.hernebring.extra;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Stream;
@@ -74,15 +72,14 @@ public class Frequency {
     }
 
     private static void printCharacterFrequency(String[] args) {
-        List<String> files = new ArrayList<>(Arrays.asList(args));
         Frequency table = null;
-        if(files.get(0).equals("-i")){
+        if(args[0].equals("-i")){
             table = new Frequency(false);
-            files.remove(0);
+            args = Arrays.copyOfRange(args, 1, args.length);
         } else{
             table = new Frequency();
         }
-        for (String file : files) {
+        for (String file : args) {
             table.count(Path.of(file));
         }
         table.print();
